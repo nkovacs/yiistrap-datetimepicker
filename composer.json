@@ -1,0 +1,25 @@
+{
+	"name": "nkovacs/yiistrap-datetimepicker",
+	"description": "Date/Time picker for Yiistrap, based on tarruda/bootstrap-datetimepicker",
+	"keywords": [
+		"datetimepicker",
+		"yiistrap",
+		"widget",
+		"bootstrap",
+		"extension",
+		"yii"
+	],
+	"type": "library",
+	"license": "BSD-3-Clause",
+	"require": {
+		"crisu83/yiistrap": ">=1.1.1"
+	},
+	"require-dev": {
+		"yiisoft/yii": "1.1.*"
+	},
+	"autoload": {
+		"classmap": [
+			"widgets/"
+		]
+	}
+}
