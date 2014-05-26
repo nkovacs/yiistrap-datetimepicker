@@ -24,7 +24,7 @@ class TbDateTimePicker extends CInputWidget
 		Yii::import('bootstrap.behaviors.TbWidget');
 		$this->attachBehavior('tbWidget', new TbWidget);
 		if (!isset($this->assetPath)) {
-			$this->assetPath = realpath(dirname(__FILE__) . '/assets');
+			$this->assetPath = realpath(dirname(__FILE__) . '/../assets');
 		}
 	}
 
