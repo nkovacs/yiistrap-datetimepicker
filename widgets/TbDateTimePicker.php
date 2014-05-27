@@ -14,6 +14,16 @@ class TbDateTimePicker extends CInputWidget
 	public $pluginOptions = array();
 
 	/**
+	 * @var bool whether to register the assets.
+	 */
+	public $registerAssets = true;
+
+	/**
+	 * @var bool whether to bind the plugin to the associated dom element.
+	 */
+	public $bindPlugin = true;
+
+	/**
 	 * @var string path to widget assets.
 	 */
 	public $assetPath;
@@ -25,6 +35,10 @@ class TbDateTimePicker extends CInputWidget
 		$this->attachBehavior('tbWidget', new TbWidget);
 		if (!isset($this->assetPath)) {
 			$this->assetPath = realpath(dirname(__FILE__) . '/../assets');
+		}
+		if (!$this->bindPlugin) {
+			$this->htmlOptions['data-plugin'] = 'datetimepicker';
+			$this->htmlOptions['data-plugin-options'] = CJSON::encode($this->pluginOptions);
 		}
 	}
 
@@ -39,7 +53,7 @@ class TbDateTimePicker extends CInputWidget
 			echo TbHtml::textField($name, $this->value, $this->htmlOptions);
 		}
 
-		if ($this->assetPath !== false) {
+		if ($this->assetPath !== false && $this->registerAssets) {
 			$this->publishAssets($this->assetPath);
 			$this->registerCssFile('/css/bootstrap-datetimepicker' . (YII_DEBUG ? '' : '.min') . '.css');
 
@@ -57,11 +71,13 @@ class TbDateTimePicker extends CInputWidget
 			}
 		}
 
-		$options = !empty($this->pluginOptions) ? CJavaScript::encode($this->pluginOptions) : '';
-		$this->getClientScript()->registerScript(
-			__CLASS__ . '#' . $id,
-			"jQuery('#{$id}').datetimepicker({$options});"
-		);
+		if ($this->bindPlugin) {
+			$options = !empty($this->pluginOptions) ? CJavaScript::encode($this->pluginOptions) : '';
+			$this->getClientScript()->registerScript(
+				__CLASS__ . '#' . $id,
+				"jQuery('#{$id}').datetimepicker({$options});"
+			);
+		}
 	}
 
 }
